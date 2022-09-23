@@ -1,6 +1,6 @@
-board = ['#',' ',' ',' ',' ',' ',' ',' ',' ',' ']
+board = ['#'] + 9 * [' ']
 current_player = 1
-player_symbols = ['#', 'X' ,'O']
+player_symbols = ['#'] + 2 * [' ']
 total_moves = 0
 max_moves = 9
 game_over = False
@@ -14,6 +14,13 @@ def display(board):
         vertical_line + horizontal_line +
         vertical_line + values.format(mark1=board[1],mark2=board[2],mark3=board[3]) +
         vertical_line)
+
+def get_symbol_selection(current_player, player_symbols):
+    symbol = ''
+    while symbol not in ('X','O'):
+        symbol = input(f"Player {current_player} - Please choose a symbol (X or O): ")
+    player_symbols[current_player] = symbol
+    player_symbols[2 if current_player == 1 else 1] = 'O' if symbol == 'X' else 'X'
 
 def valid_position_selection(position, board):
     if not position.isdigit():
@@ -46,6 +53,8 @@ def has_winner(board):
     return False
 
 display(board)
+
+get_symbol_selection(current_player, player_symbols)
 
 while not game_over:
     
