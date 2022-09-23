@@ -5,7 +5,14 @@ winner = 0
 game_over = False
 
 def display(board):
-    print(f"{board[7]}|{board[8]}|{board[9]}\n-+-+-\n{board[4]}|{board[5]}|{board[6]}\n-+-+-\n{board[1]}|{board[2]}|{board[3]}")
+    vertical_line = "   |   |\n"
+    horizontal_line = "---+---+---\n"
+    values = " {mark1} | {mark2} | {mark3}\n"
+    print(vertical_line + values.format(mark1=board[7],mark2=board[8],mark3=board[9]) +
+        vertical_line + horizontal_line + vertical_line + values.format(mark1=board[4],mark2=board[5],mark3=board[6]) +
+        vertical_line + horizontal_line +
+        vertical_line + values.format(mark1=board[1],mark2=board[2],mark3=board[3]) +
+        vertical_line)
 
 def valid_position(position, board):
     if not position.isdigit():
