@@ -1,8 +1,7 @@
 board = ['#',' ',' ',' ',' ',' ',' ',' ',' ',' ']
 current_player = 1
 player_symbols = ['#', 'X' ,'O']
-winner = 0
-moves = 0
+total_moves = 0
 max_moves = 9
 game_over = False
 
@@ -16,7 +15,7 @@ def display(board):
         vertical_line + values.format(mark1=board[1],mark2=board[2],mark3=board[3]) +
         vertical_line)
 
-def valid_position(position, board):
+def valid_position_selection(position, board):
     if not position.isdigit():
         return False
     position = int(position)
@@ -24,9 +23,9 @@ def valid_position(position, board):
         return False
     return board[position] == ' '
     
-def get_position(current_player, board):
+def get_position_selection(current_player, board):
     position = ''
-    while not valid_position(position, board):
+    while not valid_position_selection(position, board):
         position = input(f"Player {current_player} - Please mark a position (1-9): ")
     return int(position)
 
@@ -46,33 +45,22 @@ def has_winner(board):
         return True
     return False
 
-# Display board
 display(board)
 
-# While game is not over
 while not game_over:
     
-    # Get input position choice
-    position = get_position(current_player, board)
+    position = get_position_selection(current_player, board)
     
-    # Assign the position
     board[position] = player_symbols[current_player]
-    moves += 1
+    total_moves += 1
 
-    # Display board
     display(board)
 
-    # Check winner
-    someone_won = has_winner(board)
-
-    # If there is a winner
-    if someone_won:
+    if has_winner(board):
         print(f"Player {current_player} is the winner!")
         game_over = True
-    elif moves == max_moves:
+    elif total_moves == max_moves:
         print(f"No winner - Draw!")
         game_over = True
-    elif current_player == 1:
-        current_player = 2
     else:
-        current_player = 1    
+        current_player = 2 if current_player == 1 else 1
