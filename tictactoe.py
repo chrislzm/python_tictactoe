@@ -2,6 +2,8 @@ board = ['#',' ',' ',' ',' ',' ',' ',' ',' ',' ']
 current_player = 1
 player_symbols = ['#', 'X' ,'O']
 winner = 0
+moves = 0
+max_moves = 9
 game_over = False
 
 def display(board):
@@ -55,16 +57,21 @@ while not game_over:
     
     # Assign the position
     board[position] = player_symbols[current_player]
+    moves += 1
 
     # Display board
     display(board)
 
     # Check winner
-    game_over = has_winner(board)
+    someone_won = has_winner(board)
 
     # If there is a winner
-    if game_over:
+    if someone_won:
         print(f"Player {current_player} is the winner!")
+        game_over = True
+    elif moves == max_moves:
+        print(f"No winner - Draw!")
+        game_over = True
     elif current_player == 1:
         current_player = 2
     else:
