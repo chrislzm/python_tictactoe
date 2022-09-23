@@ -7,19 +7,35 @@ game_over = False
 def display(board):
     print(f"{board[7]}|{board[8]}|{board[9]}\n-+-+-\n{board[4]}|{board[5]}|{board[6]}\n-+-+-\n{board[1]}|{board[2]}|{board[3]}")
 
-def valid_position(choice, board):
-    if not choice.isdigit():
+def valid_position(position, board):
+    if not position.isdigit():
         return False
-    choice = int(choice)
-    if choice < 1 or choice > 9:
+    position = int(position)
+    if position < 1 or position > 9:
         return False
-    return board[choice] == ' '
+    return board[position] == ' '
     
-def get_position(player_num, board):
-    choice = ''
-    while not valid_position(choice, board):
-        choice = input(f"Player {player_num} - Please mark a position (1-9): ")
-    return int(choice)
+def get_position(current_player, board):
+    position = ''
+    while not valid_position(position, board):
+        position = input(f"Player {current_player} - Please mark a position (1-9): ")
+    return int(position)
+
+def has_winner(board):
+    # Check each row
+    for row_offset in [0,3,6]:
+        if(board[1+row_offset] == board[2+row_offset] == board[3+row_offset] != ' '):
+            return True
+    # Check each column
+    for column_offset in [0,1,2]:
+        if(board[1+column_offset] == board[4+column_offset] == board[7+column_offset] != ' '):
+            return True
+    # Check each diagonal
+    if(board[1] == board[5] == board[9] != ' '):
+        return True
+    if(board[3] == board[5] == board[7] != ' '):
+        return True
+    return False
 
 # Display board
 display(board)
@@ -31,27 +47,18 @@ while not game_over:
     position = get_position(current_player, board)
     
     # Assign the position
-    
-    game_over = True
-    
-    
-        # Ask current player to mark a position (1-9)
-        # Check the position is valid
-
-    # Assign the position
-        # Player 1 = 'X', Player 2 = 'O'
+    board[position] = player_symbols[current_player]
 
     # Display board
+    display(board)
 
     # Check winner
-        # Check the current row
-        # Check the current column
-        # If applicable
-            # Check forward diagonal 
-        # If applicable
-            # Check back diagonal
-        
+    game_over = has_winner(board)
+
     # If there is a winner
-    
-        # Print winner message
-    
+    if game_over:
+        print(f"Player {current_player} is the winner!")
+    elif current_player == 1:
+        current_player = 2
+    else:
+        current_player = 1    
