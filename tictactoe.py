@@ -4,6 +4,7 @@ def new_board():
     return ['#'] + 9 * [' ']
 
 def display(board):
+    print("\n" * 100)
     vertical_line = "   |   |\n"
     horizontal_line = "---+---+---\n"
     values = " {mark1} | {mark2} | {mark3}\n"
