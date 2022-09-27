@@ -64,38 +64,37 @@ def continue_game():
 
 # End of helper functions
 
-board = new_board()
-current_player = random_first_player()
-player_symbols = ['#'] + 2 * [' ']
-total_moves = 0
 max_moves = 9
-game_over = False
 
-display(board)
-
-get_symbol_selection(current_player, player_symbols)
-
-while not game_over:
-    
-    position = get_position_selection(current_player, board)
-    
-    board[position] = player_symbols[current_player]
-    total_moves += 1
+while True: 
+    board = new_board()
+    current_player = random_first_player()
+    player_symbols = ['#'] + 2 * [' ']
+    total_moves = 0
+    game_over = False
 
     display(board)
 
-    if has_winner(board):
-        print(f"Player {current_player} is the winner!")
-        game_over = True
-    elif total_moves == max_moves:
-        print(f"No winner - Draw!")
-        game_over = True
+    get_symbol_selection(current_player, player_symbols)
 
-    if not game_over:
-        current_player = 2 if current_player == 1 else 1
-    elif continue_game():
-        game_over = False
-        board = new_board()
-        current_player = random_first_player()
-        total_moves = 0
+    while not game_over:
+        
+        position = get_position_selection(current_player, board)
+        
+        board[position] = player_symbols[current_player]
+        total_moves += 1
+
         display(board)
+
+        if has_winner(board):
+            print(f"Player {current_player} is the winner!")
+            game_over = True
+        elif total_moves == max_moves:
+            print(f"No winner - Draw!")
+            game_over = True
+
+        if not game_over:
+            current_player = 2 if current_player == 1 else 1
+
+    if not continue_game():
+        break
