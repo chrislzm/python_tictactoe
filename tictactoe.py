@@ -1,9 +1,7 @@
-board = ['#'] + 9 * [' ']
-current_player = 1
-player_symbols = ['#'] + 2 * [' ']
-total_moves = 0
-max_moves = 9
-game_over = False
+# Helper functions
+
+def new_board():
+    return ['#'] + 9 * [' ']
 
 def display(board):
     vertical_line = "   |   |\n"
@@ -52,6 +50,21 @@ def has_winner(board):
         return True
     return False
 
+def continue_game():
+    new_game = ''
+    while new_game not in ('Y','N'):
+        new_game = input("New game? Y or N: ")
+    return new_game == 'Y'
+
+# End of helper functions
+
+board = new_board()
+current_player = 1
+player_symbols = ['#'] + 2 * [' ']
+total_moves = 0
+max_moves = 9
+game_over = False
+
 display(board)
 
 get_symbol_selection(current_player, player_symbols)
@@ -71,5 +84,12 @@ while not game_over:
     elif total_moves == max_moves:
         print(f"No winner - Draw!")
         game_over = True
-    else:
+
+    if not game_over:
         current_player = 2 if current_player == 1 else 1
+    elif continue_game():
+        game_over = False
+        board = new_board()
+        current_player = 1
+        total_moves = 0
+        display(board)
