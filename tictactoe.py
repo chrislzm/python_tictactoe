@@ -17,7 +17,7 @@ def display(board):
 def get_symbol_selection(current_player, player_symbols):
     symbol = ''
     while symbol not in ('X','O'):
-        symbol = input(f"Player {current_player} - Please choose a symbol (X or O): ")
+        symbol = input(f"Player {current_player} - Please choose a symbol (X or O): ").upper()
     player_symbols[current_player] = symbol
     player_symbols[2 if current_player == 1 else 1] = 'O' if symbol == 'X' else 'X'
 
@@ -54,7 +54,7 @@ def has_winner(board):
 def continue_game():
     new_game = ''
     while new_game not in ('Y','N'):
-        new_game = input("New game? Y or N: ")
+        new_game = input("New game? Y or N: ").upper()
     return new_game == 'Y'
 
 # End of helper functions
