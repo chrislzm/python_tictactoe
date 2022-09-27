@@ -1,7 +1,12 @@
+import random
+
 # Helper functions
 
 def new_board():
     return ['#'] + 9 * [' ']
+
+def random_first_player():
+    return random.randint(1,2)
 
 def display(board):
     print("\n" * 100)
@@ -60,7 +65,7 @@ def continue_game():
 # End of helper functions
 
 board = new_board()
-current_player = 1
+current_player = random_first_player()
 player_symbols = ['#'] + 2 * [' ']
 total_moves = 0
 max_moves = 9
@@ -91,6 +96,6 @@ while not game_over:
     elif continue_game():
         game_over = False
         board = new_board()
-        current_player = 1
+        current_player = random_first_player()
         total_moves = 0
         display(board)
