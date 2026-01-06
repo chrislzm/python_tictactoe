@@ -9,6 +9,7 @@ from typing import List, Tuple
 # Index 0 is a padding element and unused
 EMPTY_GAME_BOARD = ('#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ')
 # All possible winning index combinations
+VALID_PLAYER_SYMBOLS = ('#', 'x', 'o')  # '#' is padding and unused
 WINNING_COMBINATIONS = (
     (1, 2, 3), (4, 5, 6), (7, 8, 9),  # Rows
     (1, 4, 7), (2, 5, 8), (3, 6, 9),  # Cols
@@ -30,9 +31,9 @@ def get_next_move(player_num: int, symbol: str, board: List[str]) -> None:
     recorded into that board space.
 
     Args:
-        player_num (int): Current player number
-        symbol (str): Current player's symbol
-        board (list): The current game board
+        player_num: Current player number
+        symbol: Current player's symbol
+        board: The current game board
     """
 
     valid_move = False
@@ -59,25 +60,25 @@ def get_player_symbols() -> Tuple[str, str, str]:
     symbol. Valid player symbols are defined by the valid_symbols variable.
 
     Returns:
-        tup: e.g. ('#', 'x', 'o') or ('#', 'o', 'x')
+        Tuple of player symbols, e.g. ('#', 'x', 'o') or ('#', 'o', 'x')
     """
-
-    VALID_SYMBOLS = ('#', 'x', 'o')  # '#' is padding and unused
 
     player_1_symbol = 'undefined'
 
-    while player_1_symbol not in VALID_SYMBOLS:
+    while player_1_symbol not in VALID_PLAYER_SYMBOLS:
         player_1_symbol = input(
-            (f"Player 1, please choose your symbol ({VALID_SYMBOLS[1]}, or "
-                f"{VALID_SYMBOLS[2]}): "))
-        if (player_1_symbol != VALID_SYMBOLS[1] and
-                player_1_symbol != VALID_SYMBOLS[2]):
+            (f"Player 1, please choose your symbol ({VALID_PLAYER_SYMBOLS[1]},"
+                f" or {VALID_PLAYER_SYMBOLS[2]}): "))
+        if (player_1_symbol != VALID_PLAYER_SYMBOLS[1] and
+                player_1_symbol != VALID_PLAYER_SYMBOLS[2]):
             print(f"Sorry, '{player_1_symbol}'' is not a valid symbol.")
 
-    if player_1_symbol == VALID_SYMBOLS[1]:
-        chosen_symbols = tuple(['', VALID_SYMBOLS[1], VALID_SYMBOLS[2]])
+    if player_1_symbol == VALID_PLAYER_SYMBOLS[1]:
+        chosen_symbols = tuple(['', VALID_PLAYER_SYMBOLS[1],
+                                VALID_PLAYER_SYMBOLS[2]])
     else:
-        chosen_symbols = tuple(['', VALID_SYMBOLS[2], VALID_SYMBOLS[1]])
+        chosen_symbols = tuple(['', VALID_PLAYER_SYMBOLS[2],
+                                VALID_PLAYER_SYMBOLS[1]])
 
     print(f"Player 1 is {chosen_symbols[1]}, Player 2 is {chosen_symbols[2]}")
 
@@ -89,10 +90,10 @@ def has_player_won(board: List[str]) -> bool:
     Takes a game board and checks if any player has won.
 
     Args:
-        board (list): The current game board
+        board: The current game board
 
     Returns:
-        bool: True if any player has won, False otherwise
+        True if any player has won, False otherwise
     """
 
     for combo in WINNING_COMBINATIONS:
@@ -109,7 +110,7 @@ def print_game_board(board: List[str]) -> None:
     Prints the game board.
 
     Args:
-        board (list): The current game board
+        board: The current game board
     """
 
     board_output = (
@@ -134,7 +135,7 @@ def randomly_select_starting_player() -> int:
     print statement.
 
     Returns:
-        int: 1 or 2
+        1 or 2
     """
 
     starting_player = randint(1, 2)
@@ -149,7 +150,7 @@ def should_start_new_game() -> bool:
     this function to return True or False respectively.
 
     Returns:
-        bool: True to play again, False to end the game
+        True to play again, False to end the game
     """
 
     while True:
