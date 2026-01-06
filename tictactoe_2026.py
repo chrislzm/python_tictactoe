@@ -5,10 +5,10 @@
 from random import randint
 from typing import List, Tuple
 
-# Note: Uses 1-indexed arrays for intuitive board/player numbering
-# Index 0 is a padding element and unused
-EMPTY_GAME_BOARD = ('#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ')
-VALID_PLAYER_SYMBOLS = ('#', 'x', 'o')  # '#' is padding and unused
+# Note: Board/player symbols use 1-indexed arrays for intuitive numbering.
+# Index 0 is a padding element and unused.
+EMPTY_GAME_BOARD = (None,) + (' ',) * 9
+VALID_PLAYER_SYMBOLS = (None, 'x', 'o')
 # All possible winning index combinations
 WINNING_COMBINATIONS = (
     (1, 2, 3), (4, 5, 6), (7, 8, 9),  # Rows
@@ -53,14 +53,15 @@ def get_next_move(player_num: int, symbol: str, board: List[str]) -> None:
             print(f"Sorry, '{user_input}' is not a valid move.")
 
 
-def get_player_symbols() -> Tuple[str, str, str]:
+def get_player_symbols() -> Tuple[None, str, str]:
     """
     Asks Player 1 to input their symbol, then returns a tuple of player
     symbols, where tuple index 1 and 2 contain each respective player's
     symbol. Valid player symbols are defined by the valid_symbols variable.
 
     Returns:
-        Tuple of player symbols, e.g. ('#', 'x', 'o') or ('#', 'o', 'x')
+        Tuple of 1-indexed player symbols, e.g. (None, 'x', 'o') or
+        (None, 'o', 'x')
     """
 
     player_1_symbol = 'undefined'
@@ -78,7 +79,7 @@ def get_player_symbols() -> Tuple[str, str, str]:
 
     print(f"Player 1 is {player_1_symbol}, Player 2 is {player_2_symbol}")
 
-    return ('#', player_1_symbol, player_2_symbol)
+    return (None, player_1_symbol, player_2_symbol)
 
 
 def has_player_won(board: List[str]) -> bool:
