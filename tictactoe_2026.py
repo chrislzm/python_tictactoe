@@ -7,7 +7,8 @@ from typing import List, Tuple
 
 # Note: Board/player symbols use 1-indexed arrays for intuitive numbering.
 # Index 0 is a padding element and unused.
-EMPTY_GAME_BOARD = (None,) + (' ',) * 9
+BOARD_SIZE = 9
+EMPTY_GAME_BOARD = (None,) + (' ',) * BOARD_SIZE
 VALID_PLAYER_SYMBOLS = (None, 'x', 'o')
 # All possible winning index combinations
 WINNING_COMBINATIONS = (
@@ -33,7 +34,11 @@ def get_next_move(player_num: int, symbol: str, board: List[str]) -> None:
     Args:
         player_num: Current player number
         symbol: Current player's symbol
-        board: The current game board
+        board: The current game board (modified in place with the player's move)
+
+    Note:
+        This function mutates the board parameter by updating it with the
+        player's chosen move.
     """
 
     valid_move = False
@@ -44,7 +49,7 @@ def get_next_move(player_num: int, symbol: str, board: List[str]) -> None:
         # Check whether inputted move is valid
         if user_input.isdigit():
             selected_space = int(user_input)
-            if (selected_space >= 1 and selected_space <= 9 and
+            if (selected_space >= 1 and selected_space <= BOARD_SIZE and
                     board[selected_space] == ' '):
                 valid_move = True
                 board[selected_space] = symbol
@@ -100,6 +105,27 @@ def has_player_won(board: List[str]) -> bool:
 
     # Neither player has won
     return False
+
+
+def print_board_positions() -> None:
+    """
+    Prints the board position numbers (1-9) to help players understand the
+    numbering system for making moves.
+    """
+    positions_output = (
+        "Board positions:\n"
+        "   |   |   \n"
+        " 1 | 2 | 3 \n"
+        "   |   |   \n"
+        "---+---+---\n"
+        "   |   |   \n"
+        " 4 | 5 | 6 \n"
+        "   |   |   \n"
+        "---+---+---\n"
+        "   |   |   \n"
+        " 7 | 8 | 9 \n"
+        "   |   |   \n")
+    print(positions_output)
 
 
 def print_game_board(board: List[str]) -> None:
@@ -160,40 +186,49 @@ def should_start_new_game() -> bool:
             print(f"Sorry, '{response}' is not a valid input.")
 
 
-# Show welcome message
-clear_screen()
-print("Welcome to Tic Tac Toe!")
+def main() -> None:
+    """
+    Main game loop that runs the Tic Tac Toe game.
+    """
+    # Show welcome message
+    clear_screen()
+    print("Welcome to Tic Tac Toe!")
+    print_board_positions()
 
-while True:
-    # Game setup
-    game_over = False
-    board = list(EMPTY_GAME_BOARD)
-    num_moves_made = 0
-    player_symbols = get_player_symbols()
+    while True:
+        # Game setup
+        game_over = False
+        board = list(EMPTY_GAME_BOARD)
+        num_moves_made = 0
+        player_symbols = get_player_symbols()
 
-    # Start the game
-    print_game_board(board)
-    current_player = randomly_select_starting_player()
-    while not game_over:
-
-        get_next_move(current_player,
-                      player_symbols[current_player], board)
-        num_moves_made += 1
-
+        # Start the game
         print_game_board(board)
+        current_player = randomly_select_starting_player()
+        while not game_over:
 
-        if has_player_won(board):
-            print(f"Game over - Player {current_player} wins!")
-            game_over = True
-        elif num_moves_made == 9:  # Board is full
-            print("Game over - Stalemate!")
-            game_over = True
+            get_next_move(current_player,
+                          player_symbols[current_player], board)
+            num_moves_made += 1
 
-        if not game_over:
-            # Switch players
-            current_player = 1 if current_player == 2 else 2
+            print_game_board(board)
 
-    if not should_start_new_game():
-        break
+            if has_player_won(board):
+                print(f"Game over - Player {current_player} wins!")
+                game_over = True
+            elif num_moves_made == BOARD_SIZE:  # Board is full
+                print("Game over - Stalemate!")
+                game_over = True
 
-print("Thanks for playing! Goodbye!")
+            if not game_over:
+                # Switch players
+                current_player = 1 if current_player == 2 else 2
+
+        if not should_start_new_game():
+            break
+
+    print("Thanks for playing! Goodbye!")
+
+
+if __name__ == '__main__':
+    main()
