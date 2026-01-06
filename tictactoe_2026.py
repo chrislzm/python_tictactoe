@@ -8,6 +8,12 @@ from typing import List, Tuple
 # Note: Uses 1-indexed arrays for intuitive board/player numbering
 # Index 0 is a padding element and unused
 EMPTY_GAME_BOARD = ('#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ')
+# All possible winning index combinations
+WINNING_COMBINATIONS = (
+    (1, 2, 3), (4, 5, 6), (7, 8, 9),  # Rows
+    (1, 4, 7), (2, 5, 8), (3, 6, 9),  # Cols
+    (1, 5, 9), (3, 5, 7)              # Diagonals
+)
 
 
 def clear_screen() -> None:
@@ -89,21 +95,10 @@ def has_player_won(board: List[str]) -> bool:
         bool: True if any player has won, False otherwise
     """
 
-    # Check each row
-    for row in range(0, 7, 3):
-        if (board[1+row] != ' ' and
-                (board[1+row] == board[2+row] == board[3+row])):
+    for combo in WINNING_COMBINATIONS:
+        if ((board[combo[0]] == board[combo[1]] == board[combo[2]]) and
+                board[combo[0]] != ' '):
             return True
-    # Check each column
-    for col in range(0, 3):
-        if (board[1+col] != ' ' and
-                (board[1+col] == board[4+col] == board[7+col])):
-            return True
-    # Check diagonals
-    if (board[5] != ' ' and
-        ((board[1] == board[5] == board[9])
-            or (board[3] == board[5] == board[7]))):
-        return True
 
     # Neither player has won
     return False
