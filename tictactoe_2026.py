@@ -3,6 +3,7 @@
 # January 2, 2026
 
 from random import randint
+from typing import List, Tuple
 
 # Note: Uses 1-indexed arrays for intuitive board/player numbering
 # Index 0 is a padding element and unused
@@ -16,7 +17,7 @@ def clear_screen() -> None:
     print('\n'*100)
 
 
-def get_next_move(player_num: int, symbol: str, board: list) -> None:
+def get_next_move(player_num: int, symbol: str, board: List[str]) -> None:
     """
     Prompts the current player to input a valid move. A valid move is a number
     between 1-9 and where that board space is empty. The player symbol is then
@@ -45,7 +46,7 @@ def get_next_move(player_num: int, symbol: str, board: list) -> None:
             print(f"Sorry, '{user_input}' is not a valid move.")
 
 
-def get_player_symbols() -> bool:
+def get_player_symbols() -> Tuple[str, str, str]:
     """
     Asks Player 1 to input their symbol, then returns a tuple of player
     symbols, where tuple index 1 and 2 contain each respective player's
@@ -77,7 +78,7 @@ def get_player_symbols() -> bool:
     return chosen_symbols
 
 
-def has_player_won(board: list) -> bool:
+def has_player_won(board: List[str]) -> bool:
     """
     Takes a game board and checks if any player has won.
 
@@ -108,7 +109,7 @@ def has_player_won(board: list) -> bool:
     return False
 
 
-def print_game_board(board: list) -> bool:
+def print_game_board(board: List[str]) -> None:
     """
     Prints the game board.
 
