@@ -4,17 +4,19 @@
 
 from random import randint
 
-EMPTY_GAME_BOARD = ['#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
+# Note: Uses 1-indexed arrays for intuitive board/player numbering
+# Index 0 is a padding element and unused
+EMPTY_GAME_BOARD = ('#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ')
 
 
-def clear_screen():
+def clear_screen() -> None:
     """
     Clears the display to a blank screen.
     """
     print('\n'*100)
 
 
-def get_next_move(player_num, symbol, board):
+def get_next_move(player_num: int, symbol: str, board: list) -> None:
     """
     Prompts the current player to input a valid move. A valid move is a number
     between 1-9 and where that board space is empty. The player symbol is then
@@ -43,7 +45,7 @@ def get_next_move(player_num, symbol, board):
             print(f"Sorry, '{user_input}' is not a valid move.")
 
 
-def get_player_symbols():
+def get_player_symbols() -> bool:
     """
     Asks Player 1 to input their symbol, then returns a tuple of player
     symbols, where tuple index 1 and 2 contain each respective player's
@@ -53,7 +55,7 @@ def get_player_symbols():
         tup: e.g. ('#', 'x', 'o') or ('#', 'o', 'x')
     """
 
-    VALID_SYMBOLS = ['', 'x', 'o']
+    VALID_SYMBOLS = ('#', 'x', 'o')  # '#' is padding and unused
 
     player_1_symbol = 'undefined'
 
@@ -75,7 +77,7 @@ def get_player_symbols():
     return chosen_symbols
 
 
-def has_player_won(board):
+def has_player_won(board: list) -> bool:
     """
     Takes a game board and checks if any player has won.
 
@@ -106,7 +108,7 @@ def has_player_won(board):
     return False
 
 
-def print_game_board(board):
+def print_game_board(board: list) -> bool:
     """
     Prints the game board.
 
@@ -130,7 +132,7 @@ def print_game_board(board):
     print(board_output)
 
 
-def randomly_select_starting_player():
+def randomly_select_starting_player() -> int:
     """
     Randomly selects which player (1 or 2) goes first and announces it via
     print statement.
@@ -144,7 +146,7 @@ def randomly_select_starting_player():
     return starting_player
 
 
-def should_start_new_game():
+def should_start_new_game() -> bool:
     """
     Asks the players if they want to start a new game. Continues to prompt
     until a valid input is received. Valid inputs are 'y' and 'n', causing
@@ -171,7 +173,7 @@ print("Welcome to Tic Tac Toe!")
 while True:
     # Game setup
     game_over = False
-    board = EMPTY_GAME_BOARD.copy()
+    board = list(EMPTY_GAME_BOARD)
     num_moves_made = 0
     player_symbols = get_player_symbols()
 
