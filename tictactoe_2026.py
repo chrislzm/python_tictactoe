@@ -72,7 +72,7 @@ def get_player_symbols() -> Tuple[None, str, str]:
                 f" or {VALID_PLAYER_SYMBOLS[2]}): "))
         if (player_1_symbol != VALID_PLAYER_SYMBOLS[1] and
                 player_1_symbol != VALID_PLAYER_SYMBOLS[2]):
-            print(f"Sorry, '{player_1_symbol}'' is not a valid symbol.")
+            print(f"Sorry, '{player_1_symbol}' is not a valid symbol.")
 
     player_2_symbol = (VALID_PLAYER_SYMBOLS[2] if player_1_symbol ==
                        VALID_PLAYER_SYMBOLS[1] else VALID_PLAYER_SYMBOLS[1])
