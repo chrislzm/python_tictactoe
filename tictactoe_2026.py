@@ -73,16 +73,12 @@ def get_player_symbols() -> Tuple[str, str, str]:
                 player_1_symbol != VALID_PLAYER_SYMBOLS[2]):
             print(f"Sorry, '{player_1_symbol}'' is not a valid symbol.")
 
-    if player_1_symbol == VALID_PLAYER_SYMBOLS[1]:
-        chosen_symbols = tuple(['', VALID_PLAYER_SYMBOLS[1],
-                                VALID_PLAYER_SYMBOLS[2]])
-    else:
-        chosen_symbols = tuple(['', VALID_PLAYER_SYMBOLS[2],
-                                VALID_PLAYER_SYMBOLS[1]])
+    player_2_symbol = (VALID_PLAYER_SYMBOLS[2] if player_1_symbol ==
+                       VALID_PLAYER_SYMBOLS[1] else VALID_PLAYER_SYMBOLS[1])
 
-    print(f"Player 1 is {chosen_symbols[1]}, Player 2 is {chosen_symbols[2]}")
+    print(f"Player 1 is {player_1_symbol}, Player 2 is {player_2_symbol}")
 
-    return chosen_symbols
+    return ('#', player_1_symbol, player_2_symbol)
 
 
 def has_player_won(board: List[str]) -> bool:
