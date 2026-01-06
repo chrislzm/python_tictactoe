@@ -8,8 +8,8 @@ from typing import List, Tuple
 # Note: Uses 1-indexed arrays for intuitive board/player numbering
 # Index 0 is a padding element and unused
 EMPTY_GAME_BOARD = ('#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ')
-# All possible winning index combinations
 VALID_PLAYER_SYMBOLS = ('#', 'x', 'o')  # '#' is padding and unused
+# All possible winning index combinations
 WINNING_COMBINATIONS = (
     (1, 2, 3), (4, 5, 6), (7, 8, 9),  # Rows
     (1, 4, 7), (2, 5, 8), (3, 6, 9),  # Cols
