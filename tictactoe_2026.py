@@ -1,6 +1,8 @@
-# Tic Tac Toe: Milestone 1 Project for "The Complete Python Bootcamp"
-# Author: Chris Leung
-# January 2, 2026
+"""
+Tic Tac Toe: Milestone 1 Project for "The Complete Python Bootcamp"
+Author: Chris Leung
+January 2, 2026
+"""
 
 from random import randint
 from typing import List, Tuple
@@ -34,7 +36,7 @@ def get_next_move(player_num: int, symbol: str, board: List[str]) -> None:
     Args:
         player_num: Current player number
         symbol: Current player's symbol
-        board: The current game board (modified in place with the player's move)
+        board: The current game board (modified in place)
 
     Note:
         This function mutates the board parameter by updating it with the
@@ -49,7 +51,7 @@ def get_next_move(player_num: int, symbol: str, board: List[str]) -> None:
         # Check whether inputted move is valid
         if user_input.isdigit():
             selected_space = int(user_input)
-            if (selected_space >= 1 and selected_space <= BOARD_SIZE and
+            if (1 <= selected_space <= BOARD_SIZE and
                     board[selected_space] == ' '):
                 valid_move = True
                 board[selected_space] = symbol
@@ -75,8 +77,7 @@ def get_player_symbols() -> Tuple[None, str, str]:
         player_1_symbol = input(
             (f"Player 1, please choose your symbol ({VALID_PLAYER_SYMBOLS[1]},"
                 f" or {VALID_PLAYER_SYMBOLS[2]}): "))
-        if (player_1_symbol != VALID_PLAYER_SYMBOLS[1] and
-                player_1_symbol != VALID_PLAYER_SYMBOLS[2]):
+        if player_1_symbol not in VALID_PLAYER_SYMBOLS:
             print(f"Sorry, '{player_1_symbol}' is not a valid symbol.")
 
     player_2_symbol = (VALID_PLAYER_SYMBOLS[2] if player_1_symbol ==
@@ -180,10 +181,9 @@ def should_start_new_game() -> bool:
         response = input("Would you like to start a new game? (y/n): ")
         if response == 'y':
             return True
-        elif response == 'n':
+        if response == 'n':
             return False
-        else:
-            print(f"Sorry, '{response}' is not a valid input.")
+        print(f"Sorry, '{response}' is not a valid input.")
 
 
 def main() -> None:
